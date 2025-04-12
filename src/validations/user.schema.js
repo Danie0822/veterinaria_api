@@ -26,11 +26,6 @@ const { z } = require('zod');
  *           type: string
  *           description: The email address of the user.
  *           example: "ale@gmail.com"
- *         id_position:
- *           type: string
- *           format: uuid
- *           description: The position ID associated with the user.
- *           example: "550e8400-e29b-41d4-a716-446655440000"
  *         rol:
  *           type: string
  *           enum: [admin, user]
@@ -79,9 +74,6 @@ const userSchema = z.object({
     })
         .email('Email must be valid')
         .max(250, 'Email must not exceed 250 characters'),
-    id_position: z.string().uuid({
-        required_error: 'Position ID is required',
-    }),
     rol: z.enum(['admin', 'user'], {
         required_error: 'Role is required',
     }),
