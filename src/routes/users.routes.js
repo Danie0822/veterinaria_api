@@ -17,7 +17,6 @@ const {
 
 const router = express.Router();
 
-router.use(checkAuth('admin'));
 /**
  * @swagger
  * tags:
@@ -51,8 +50,6 @@ router.get('/', getAll);
  *   post:
  *     summary: Create a new user
  *     tags: [Users] 
- *     security:
- *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
