@@ -1,56 +1,55 @@
 const express = require('express');
+const router = express.Router();
 const {
-  getAll,
-  save,
-  getById,
-  update,
-  destroy
-} = require('../controllers/user.controller');
-const {checkAuth} = require('../middlewares/checkAuth'); // Import your auth middleware
+    getAll,
+    save,
+    getById,
+    update,
+    destroy
+} = require('../controllers/typePets.controller');
+const { checkAuth } = require('../middlewares/checkAuth'); // Import your auth middleware
 const validateRequest = require('../utils/validateRequest');
 const {
-  readUserRequestSchema,
-  createUserRequestSchema,
-  updateUserRequestSchema,
-  deleteUserRequestSchema,
-} = require('../validations/user.schema'); // Ensure the file name matches
+    readUserRequestSchema,
+    createUserRequestSchema,
+    updateUserRequestSchema,
+    deleteUserRequestSchema,
+} = require('../validations/typePets.schema'); // Ensure the file name matches
 
-const router = express.Router();
-
-router.use(checkAuth('admin'));
+router.use(checkAuth('admin')); // Import the middleware for authentication by role the admin
 /**
  * @swagger
  * tags:
- *   name: Users
- *   description: Endpoints related to user operations
+ *   name: TypePets
+ *   description: Endpoints para gestionar los tipos de mascotas
  */
 
 /**
  * @swagger
- * /users:
+ * /type-pets:
  *   get:
- *     summary: Retrieve all users
- *     tags: [Users] 
+ *     summary: Obtiene la lista de todos los tipos de mascotas
+ *     tags: [TypePets]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: A list of users.
+ *         description: Lista de tipos de mascotas.
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: "#/components/schemas/User"
+ *                 $ref: '#/components/schemas/TypePet'
  */
 router.get('/', getAll);
 
 /**
  * @swagger
- * /users:
+ * /type-pets:
  *   post:
- *     summary: Create a new user
- *     tags: [Users] 
+ *     summary: Crea un nuevo tipo de mascota
+ *     tags: [TypePets]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -58,29 +57,29 @@ router.get('/', getAll);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/User"
+ *             $ref: '#/components/schemas/TypePet'
  *     responses:
  *       201:
- *         description: User created successfully.
+ *         description: Tipo de mascota creado exitosamente.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/User"
+ *               $ref: '#/components/schemas/TypePet'
  *       400:
- *         description: Error creating user.
+ *         description: Error en la creación del tipo de mascota.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.post('/', validateRequest(createUserRequestSchema), save);
 
 /**
  * @swagger
- * /users/{id}:
+ * /type-pets/{id}:
  *   get:
- *     summary: Retrieve a user by ID
- *     tags: [Users] 
+ *     summary: Obtiene un tipo de mascota por su ID
+ *     tags: [TypePets]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -89,29 +88,28 @@ router.post('/', validateRequest(createUserRequestSchema), save);
  *         required: true
  *         schema:
  *           type: string
- *         description: The user ID.
+ *         description: ID del tipo de mascota a obtener.
  *     responses:
  *       200:
- *         description: User details.
+ *         description: Detalles del tipo de mascota.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/User"
+ *               $ref: '#/components/schemas/TypePet'
  *       404:
- *         description: User not found.
+ *         description: Tipo de mascota no encontrado.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.get('/:id', validateRequest(readUserRequestSchema), getById);
-
 /**
  * @swagger
- * /users/{id}:
+ * /type-pets/{id}:
  *   put:
- *     summary: Update a user by ID
- *     tags: [Users] 
+ *     summary: Actualiza un tipo de mascota por su ID
+ *     tags: [TypePets]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -120,35 +118,35 @@ router.get('/:id', validateRequest(readUserRequestSchema), getById);
  *         required: true
  *         schema:
  *           type: string
- *         description: The user ID.
+ *         description: ID del tipo de mascota a actualizar.
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/User"
+ *             $ref: '#/components/schemas/TypePet'
  *     responses:
  *       200:
- *         description: User updated successfully.
+ *         description: Tipo de mascota actualizado exitosamente.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/User"
+ *               $ref: '#/components/schemas/TypePet'
  *       404:
- *         description: User not found.
+ *         description: Tipo de mascota no encontrado.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.put('/:id', validateRequest(updateUserRequestSchema), update);
 
 /**
  * @swagger
- * /users/{id}:
+ * /type-pets/{id}:
  *   delete:
- *     summary: Delete a user by ID
- *     tags: [Users] 
+ *     summary: Elimina un tipo de mascota por su ID
+ *     tags: [TypePets]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -157,10 +155,10 @@ router.put('/:id', validateRequest(updateUserRequestSchema), update);
  *         required: true
  *         schema:
  *           type: string
- *         description: The user ID.
+ *         description: ID del tipo de mascota a eliminar.
  *     responses:
  *       200:
- *         description: User deleted successfully.
+ *         description: Tipo de mascota eliminado exitosamente.
  *         content:
  *           application/json:
  *             schema:
@@ -168,13 +166,13 @@ router.put('/:id', validateRequest(updateUserRequestSchema), update);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "User deleted successfully"
+ *                   example: "Type pet deleted successfully"
  *       404:
- *         description: User not found.
+ *         description: Tipo de mascota no encontrado.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.delete('/:id', validateRequest(deleteUserRequestSchema), destroy);
 

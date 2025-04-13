@@ -14,13 +14,6 @@ CREATE TABLE Usuarios (
     clave VARCHAR(255) NOT NULL  -- Clave o contraseña del usuario
 );
 
--- Tabla de Propietarios (Dueños)
-CREATE TABLE Propietarios (
-    id SERIAL PRIMARY KEY,
-    id_usuario INT,  -- Relación con la tabla Usuarios (ID del usuario que gestionó al propietario)
-    email VARCHAR(100),  -- Solo almacenamos el email en este caso
-    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id)
-);
 
 -- Tabla de Tipo de Mascotas
 CREATE TABLE TipoMascota (
@@ -47,7 +40,7 @@ CREATE TABLE Mascotas (
     id_propietario INT,  -- Relación con la tabla Propietarios
     FOREIGN KEY (id_tipo) REFERENCES TipoMascota(id),
     FOREIGN KEY (id_raza) REFERENCES Razas(id),
-    FOREIGN KEY (id_propietario) REFERENCES Propietarios(id)
+    FOREIGN KEY (id_propietario) REFERENCES Usuarios(id)
 );
 
 -- Tabla de Medicamentos
