@@ -1,4 +1,4 @@
-// src/models/area.model.js
+// src/models/Users.model.js
 const { DataTypes } = require('sequelize');
 const BaseEntity = require('./base.entity'); // Solo si usas una clase base
 

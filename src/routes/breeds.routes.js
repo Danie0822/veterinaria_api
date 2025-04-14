@@ -6,7 +6,7 @@ const {
     getById,
     update,
     destroy
-} = require('../controllers/typePets.controller');
+} = require('../controllers/breeds.controller');
 const { checkAuth } = require('../middlewares/checkAuth'); // Import your auth middleware
 const validateRequest = require('../utils/validateRequest');
 const {
@@ -14,42 +14,41 @@ const {
     createRequestSchema,
     updateRequestSchema,
     deleteRequestSchema,
-} = require('../validations/typePets.schema'); // Ensure the file name matches
+} = require('../validations/breeds.schema'); // Ensure the file name matches
 
 router.use(checkAuth('admin')); // Import the middleware for authentication by role the admin
 /**
  * @swagger
  * tags:
- *   name: TypePets
- *   description: Endpoints para gestionar los tipos de mascotas
+ *   name: breeds
+ *   description: Endpoints para gestionar las razas de mascotas
  */
 
 /**
  * @swagger
- * /type-pets:
+ * /breeds:
  *   get:
- *     summary: Obtiene la lista de todos los tipos de mascotas
- *     tags: [TypePets]
+ *     summary: Obtiene la lista de todas las razas de mascotas
+ *     tags: [breeds]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Lista de tipos de mascotas.
+ *         description: Lista de razas.
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/TypePet'
+ *                 $ref: '#/components/schemas/Breed'
  */
 router.get('/', getAll);
-
 /**
  * @swagger
- * /type-pets:
+ * /breeds:
  *   post:
- *     summary: Crea un nuevo tipo de mascota
- *     tags: [TypePets]
+ *     summary: Crea una nueva raza de mascota
+ *     tags: [breeds]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -57,29 +56,28 @@ router.get('/', getAll);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/TypePet'
+ *             $ref: '#/components/schemas/Breed'
  *     responses:
  *       201:
- *         description: Tipo de mascota creado exitosamente.
+ *         description: Raza creada exitosamente.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/TypePet'
+ *               $ref: '#/components/schemas/Breed'
  *       400:
- *         description: Error en la creación del tipo de mascota.
+ *         description: Error en la creación de la raza.
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.post('/', validateRequest(createRequestSchema), save);
-
 /**
  * @swagger
- * /type-pets/{id}:
+ * /breeds/{id}:
  *   get:
- *     summary: Obtiene un tipo de mascota por su ID
- *     tags: [TypePets]
+ *     summary: Obtiene una raza de mascota por su ID
+ *     tags: [breeds]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -88,16 +86,16 @@ router.post('/', validateRequest(createRequestSchema), save);
  *         required: true
  *         schema:
  *           type: string
- *         description: ID del tipo de mascota a obtener.
+ *         description: ID de la raza a obtener.
  *     responses:
  *       200:
- *         description: Detalles del tipo de mascota.
+ *         description: Detalles de la raza.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/TypePet'
+ *               $ref: '#/components/schemas/Breed'
  *       404:
- *         description: Tipo de mascota no encontrado.
+ *         description: Raza no encontrada.
  *         content:
  *           application/json:
  *             schema:
@@ -106,10 +104,10 @@ router.post('/', validateRequest(createRequestSchema), save);
 router.get('/:id', validateRequest(readRequestSchema), getById);
 /**
  * @swagger
- * /type-pets/{id}:
+ * /breeds/{id}:
  *   put:
- *     summary: Actualiza un tipo de mascota por su ID
- *     tags: [TypePets]
+ *     summary: Actualiza una raza de mascota por su ID
+ *     tags: [breeds]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -118,35 +116,34 @@ router.get('/:id', validateRequest(readRequestSchema), getById);
  *         required: true
  *         schema:
  *           type: string
- *         description: ID del tipo de mascota a actualizar.
+ *         description: ID de la raza a actualizar.
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/TypePet'
+ *             $ref: '#/components/schemas/Breed'
  *     responses:
  *       200:
- *         description: Tipo de mascota actualizado exitosamente.
+ *         description: Raza actualizada exitosamente.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/TypePet'
+ *               $ref: '#/components/schemas/Breed'
  *       404:
- *         description: Tipo de mascota no encontrado.
+ *         description: Raza no encontrada.
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.put('/:id', validateRequest(updateRequestSchema), update);
-
 /**
  * @swagger
- * /type-pets/{id}:
+ * /breeds/{id}:
  *   delete:
- *     summary: Elimina un tipo de mascota por su ID
- *     tags: [TypePets]
+ *     summary: Elimina una raza de mascota por su ID
+ *     tags: [breeds]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -155,10 +152,10 @@ router.put('/:id', validateRequest(updateRequestSchema), update);
  *         required: true
  *         schema:
  *           type: string
- *         description: ID del tipo de mascota a eliminar.
+ *         description: ID de la raza a eliminar.
  *     responses:
  *       200:
- *         description: Tipo de mascota eliminado exitosamente.
+ *         description: Raza eliminada exitosamente.
  *         content:
  *           application/json:
  *             schema:
@@ -166,9 +163,9 @@ router.put('/:id', validateRequest(updateRequestSchema), update);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Type pet deleted successfully"
+ *                   example: "Breed deleted successfully"
  *       404:
- *         description: Tipo de mascota no encontrado.
+ *         description: Raza no encontrada.
  *         content:
  *           application/json:
  *             schema:
@@ -177,3 +174,4 @@ router.put('/:id', validateRequest(updateRequestSchema), update);
 router.delete('/:id', validateRequest(deleteRequestSchema), destroy);
 
 module.exports = router;
+

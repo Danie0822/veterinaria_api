@@ -1,24 +1,22 @@
-// src/models/typePets.model.js
-const { DataTypes } = require('sequelize');
+// Modelo de datos para las razas de perros
+const {DataTypes} = require('sequelize');
 const BaseEntity = require('./base.entity'); // Solo si usas una clase base
 
-class TypePets extends BaseEntity {
-    static initModel(sequelize) {
+class Breeds extends BaseEntity{
+    static initModel(sequelize){
         super.init(
             {
                 name: {
                     type: DataTypes.STRING(250),
-                    allowNull: false
+                    allowNull: false,
                 },
-
             },
             {
                 sequelize,
-                modelName: 'TypePet',
-                tableName: 'TypePets'
+                modelName: 'Breed',
+                tableName: 'Breeds'
             }
         );
     }
 }
-
-module.exports = TypePets;
+module.exports = Breeds;

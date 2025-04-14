@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    queryInterface.createTable('TypePets', {
+    queryInterface.createTable('Breeds', {
       id: {
         allowNull: false,
         primaryKey: true,
@@ -13,9 +13,9 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true, 
-        comment: 'Nombre del tipo de mascota',
-      },  
+        unique: true,
+        comment: 'Nombre de la raza',
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -34,6 +34,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    queryInterface.dropTable('TypePets');
+    await queryInterface.dropTable('Breeds');
   }
 };

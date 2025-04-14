@@ -4,23 +4,6 @@ CREATE DATABASE VeterinariaDB;
 -- Usar la base de datos
 \c VeterinariaDB;
 
--- Tabla de Usuarios
-CREATE TABLE Usuarios (
-    id SERIAL PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    telefono VARCHAR(15),
-    email VARCHAR(100),
-    rol VARCHAR(20) CHECK (rol IN ('admin', 'user')) NOT NULL,  -- Roles: 'admin' o 'user'
-    clave VARCHAR(255) NOT NULL  -- Clave o contraseña del usuario
-);
-
-
--- Tabla de Tipo de Mascotas
-CREATE TABLE TipoMascota (
-    id SERIAL PRIMARY KEY,
-    tipo_nombre VARCHAR(50) NOT NULL  -- Ejemplo: Perro, Gato, Conejo, etc.
-);
-
 -- Tabla de Razas
 CREATE TABLE Razas (
     id SERIAL PRIMARY KEY,

@@ -3,7 +3,7 @@ const { z } = require('zod');
  * @swagger
  * components:
  *   schemas:
- *     TypePet:
+ *     Breed:
  *       type: object
  *       required:
  *         - name
@@ -11,23 +11,23 @@ const { z } = require('zod');
  *         id:
  *           type: string
  *           format: uuid
- *           description: Identificador único del tipo de mascota.
+ *           description: Identificador único de la raza.
  *           example: "550e8400-e29b-41d4-a716-446655440000"
  *         name:
  *           type: string
- *           description: Nombre del tipo de mascota.
- *           example: "Perro"
+ *           description: Nombre de la raza.
+ *           example: "Labrador"
  *     ErrorResponse:
  *       type: object
  *       properties:
  *         error:
  *           type: string
  *           description: Mensaje de error.
- *           example: "Type pet not found"
+ *           example: "Breed not found"
  *         route:
  *           type: string
  *           description: Ruta donde ocurrió el error.
- *           example: "/typepets/550e8400-e29b-41d4-a716-446655440000"
+ *           example: "/breeds/550e8400-e29b-41d4-a716-446655440000"
  *         status:
  *           type: number
  *           description: Código de estado HTTP.
@@ -39,7 +39,7 @@ const params = z.object({
 });
 
 // Define the User schema
-const typePetsSchema = z.object({
+const BreedsSchema = z.object({
     id: z.string().uuid(),
     name: z.string({
         required_error: 'Name is required',
@@ -55,12 +55,12 @@ const readRequestSchema = z.object({
 });
 
 const createRequestSchema = z.object({
-    body: typePetsSchema.omit({ id: true }),
+    body: BreedsSchema.omit({ id: true }),
 });
 
 const updateRequestSchema = z.object({
     params,
-    body: typePetsSchema.omit({ id: true }),
+    body: BreedsSchema.omit({ id: true }),
 });
 
 const deleteRequestSchema = z.object({
