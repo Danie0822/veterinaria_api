@@ -14,7 +14,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
-        comment: 'Nombre de la raza',
+        comment: 'Nombre de la raza (Pitbull, Labrador, etc.)',
       },
       created_at: {
         allowNull: false,

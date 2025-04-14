@@ -14,7 +14,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true, 
-        comment: 'Nombre del tipo de mascota',
+        comment: 'Nombre del tipo de mascota (Perro, Gato, etc.)',
       },  
       created_at: {
         allowNull: false,
