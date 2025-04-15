@@ -4,34 +4,6 @@ CREATE DATABASE VeterinariaDB;
 -- Usar la base de datos
 \c VeterinariaDB;
 
--- Tabla de Razas
-CREATE TABLE Razas (
-    id SERIAL PRIMARY KEY,
-    raza_nombre VARCHAR(100) NOT NULL,  -- Ejemplo: Labrador, Persa, Bulldog, etc.
-    id_tipo_mascota INT,  -- Relación con la tabla TipoMascota
-    FOREIGN KEY (id_tipo_mascota) REFERENCES TipoMascota(id)
-);
-
--- Tabla de Mascotas
-CREATE TABLE Mascotas (
-    id SERIAL PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    id_tipo INT,  -- Relación con la tabla TipoMascota
-    id_raza INT,  -- Relación con la tabla Razas
-    edad INT,  -- Edad de la mascota en años
-    sexo VARCHAR(6) CHECK (sexo IN ('Macho', 'Hembra')) NOT NULL,  -- Sexo de la mascota: 'Macho' o 'Hembra'
-    id_propietario INT,  -- Relación con la tabla Propietarios
-    FOREIGN KEY (id_tipo) REFERENCES TipoMascota(id),
-    FOREIGN KEY (id_raza) REFERENCES Razas(id),
-    FOREIGN KEY (id_propietario) REFERENCES Usuarios(id)
-);
-
--- Tabla de Medicamentos
-CREATE TABLE Medicamentos (
-    id SERIAL PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,  -- Nombre del medicamento
-    descripcion TEXT  -- Descripción del medicamento
-);
 
 -- Tabla de Tratamientos
 CREATE TABLE Tratamientos (
@@ -77,6 +49,6 @@ CREATE TABLE Citas (
     fecha_cita DATE,
     hora TIME,
     descripcion TEXT,
-    estado VARCHAR(20) DEFAULT 'Pendiente' CHECK (estado IN ('Pendiente', 'Confirmada', 'Cancelada', 'Realizada')),  -- Estado de la cita
+    estado VARCHAR(20) DEFAULT 'Pendiente' CHECK (estado IN ('Pendiente', 'Confirmada', 'Cancelada', 'Realizada')),  -- Estado de la cita  
     FOREIGN KEY (id_mascota) REFERENCES Mascotas(id)
 );
