@@ -20,5 +20,5 @@ ENV API_PORT=${API_PORT}
 # Exponer el puerto definido en el .env (usando un valor por defecto si no está definido)
 EXPOSE ${API_PORT}
 
-# Comando por defecto para ejecutar la API
-CMD ["npm", "run", "dev"]
+# Comando por defecto para ejecutar migraciones, seeders y luego iniciar la app
+CMD ["sh", "-c", "npx sequelize db:migrate && npx sequelize db:seed:all && npm run dev"]
