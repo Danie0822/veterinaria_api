@@ -17,8 +17,8 @@ COPY . .
 ARG API_PORT
 ENV API_PORT=${API_PORT}
 
-# Exponer el puerto definido en el .env (usando un valor por defecto si no está definido)
+# Exponer el puerto definido
 EXPOSE ${API_PORT}
 
-# Comando por defecto para ejecutar migraciones, seeders y luego iniciar la app
-CMD ["sh", "-c", "npx sequelize db:migrate && npx sequelize db:seed:all && npm run dev"]
+# Solo correr migraciones y luego iniciar la app, sin ejecutar seeders
+CMD ["sh", "-c", "npx sequelize db:migrate && npm run dev"]
