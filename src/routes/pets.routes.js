@@ -7,48 +7,50 @@ const {
     update,
     destroy
 } = require('../controllers/pets.controller');
-const { checkAuth } = require('../middlewares/checkAuth'); // Import your auth middleware
+const { checkAuth } = require('../middlewares/checkAuth');
 const validateRequest = require('../utils/validateRequest');
 const {
     createPetSchema,
     updatePetSchema,
     readPetSchema,
     deletePetSchema,
-} = require('../validations/pets.schema.js'); // Ensure the file name matches
+} = require('../validations/pets.schema.js');
 
-router.use(checkAuth('admin')); // Import the middleware for authentication by role the admin
+router.use(checkAuth('admin'));
+
 /**
  * @swagger
  * tags:
- *   name: Pets
- *   description: Endpoints related to pet operations
+ *   name: pets
+ *   description: Endpoints para gestionar las mascotas
  */
 
 /**
  * @swagger
  * /pets:
  *   get:
- *     summary: Retrieve all pets
- *     tags: [Pets]
+ *     summary: Obtiene la lista de todas las mascotas
+ *     tags: [pets]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: A list of pets.
+ *         description: Lista de mascotas.
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: "#/components/schemas/Pet"
+ *                 $ref: '#/components/schemas/Pet'
  */
 router.get('/', getAll);
+
 /**
  * @swagger
  * /pets:
  *   post:
- *     summary: Create a new pet
- *     tags: [Pets]
+ *     summary: Crea una nueva mascota
+ *     tags: [pets]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -56,28 +58,29 @@ router.get('/', getAll);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/Pet"
+ *             $ref: '#/components/schemas/Pet'
  *     responses:
  *       201:
- *         description: Pet created successfully.
+ *         description: Mascota creada exitosamente.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Pet"
+ *               $ref: '#/components/schemas/Pet'
  *       400:
- *         description: Error creating pet.
+ *         description: Error en la creación de la mascota.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.post('/', validateRequest(createPetSchema), save);
+
 /**
  * @swagger
  * /pets/{id}:
  *   get:
- *     summary: Retrieve a pet by ID
- *     tags: [Pets]
+ *     summary: Obtiene una mascota por su ID
+ *     tags: [pets]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -87,28 +90,29 @@ router.post('/', validateRequest(createPetSchema), save);
  *         schema:
  *           type: string
  *           format: uuid
- *         description: The pet ID.
+ *         description: ID de la mascota a obtener.
  *     responses:
  *       200:
- *         description: Pet details.
+ *         description: Detalles de la mascota.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Pet"
+ *               $ref: '#/components/schemas/Pet'
  *       404:
- *         description: Pet not found.
+ *         description: Mascota no encontrada.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.get('/:id', validateRequest(readPetSchema), getById);
+
 /**
  * @swagger
  * /pets/{id}:
  *   put:
- *     summary: Update a pet by ID
- *     tags: [Pets]
+ *     summary: Actualiza una mascota por su ID
+ *     tags: [pets]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -118,34 +122,35 @@ router.get('/:id', validateRequest(readPetSchema), getById);
  *         schema:
  *           type: string
  *           format: uuid
- *         description: The pet ID.
+ *         description: ID de la mascota a actualizar.
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/Pet"
+ *             $ref: '#/components/schemas/Pet'
  *     responses:
  *       200:
- *         description: Pet updated successfully.
+ *         description: Mascota actualizada exitosamente.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Pet"
+ *               $ref: '#/components/schemas/Pet'
  *       404:
- *         description: Pet not found.
+ *         description: Mascota no encontrada.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.put('/:id', validateRequest(updatePetSchema), update);
+
 /**
  * @swagger
  * /pets/{id}:
  *   delete:
- *     summary: Delete a pet by ID
- *     tags: [Pets]
+ *     summary: Elimina una mascota por su ID
+ *     tags: [pets]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -155,10 +160,10 @@ router.put('/:id', validateRequest(updatePetSchema), update);
  *         schema:
  *           type: string
  *           format: uuid
- *         description: The pet ID.
+ *         description: ID de la mascota a eliminar.
  *     responses:
  *       200:
- *         description: Pet deleted successfully.
+ *         description: Mascota eliminada exitosamente.
  *         content:
  *           application/json:
  *             schema:
@@ -166,13 +171,13 @@ router.put('/:id', validateRequest(updatePetSchema), update);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Pet deleted successfully"
+ *                   example: "Mascota eliminada exitosamente"
  *       404:
- *         description: Pet not found.
+ *         description: Mascota no encontrada.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.delete('/:id', validateRequest(deletePetSchema), destroy);
 

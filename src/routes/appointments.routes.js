@@ -21,27 +21,27 @@ router.use(checkAuth('admin'));
 /**
  * @swagger
  * tags:
- *   name: Appointments
- *   description: Endpoints related to appointment operations
+ *   name: appointments
+ *   description: Endpoints para gestionar las citas
  */
 
 /**
  * @swagger
  * /appointments:
  *   get:
- *     summary: Retrieve all appointments
- *     tags: [Appointments]
+ *     summary: Obtiene la lista de todas las citas
+ *     tags: [appointments]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: A list of appointments.
+ *         description: Lista de citas.
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: "#/components/schemas/Appointment"
+ *                 $ref: '#/components/schemas/Appointment'
  */
 router.get('/', getAll);
 
@@ -49,8 +49,8 @@ router.get('/', getAll);
  * @swagger
  * /appointments:
  *   post:
- *     summary: Create a new appointment
- *     tags: [Appointments]
+ *     summary: Crea una nueva cita
+ *     tags: [appointments]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -58,20 +58,20 @@ router.get('/', getAll);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/Appointment"
+ *             $ref: '#/components/schemas/Appointment'
  *     responses:
  *       201:
- *         description: Appointment created successfully.
+ *         description: Cita creada exitosamente.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Appointment"
+ *               $ref: '#/components/schemas/Appointment'
  *       400:
- *         description: Error creating appointment.
+ *         description: Error en la creación de la cita.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.post('/', validateRequest(createAppointmentSchema), save);
 
@@ -79,8 +79,8 @@ router.post('/', validateRequest(createAppointmentSchema), save);
  * @swagger
  * /appointments/{id}:
  *   get:
- *     summary: Retrieve an appointment by ID
- *     tags: [Appointments]
+ *     summary: Obtiene una cita por su ID
+ *     tags: [appointments]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -90,20 +90,20 @@ router.post('/', validateRequest(createAppointmentSchema), save);
  *         schema:
  *           type: string
  *           format: uuid
- *         description: The appointment ID.
+ *         description: ID de la cita a obtener.
  *     responses:
  *       200:
- *         description: Appointment details.
+ *         description: Detalles de la cita.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Appointment"
+ *               $ref: '#/components/schemas/Appointment'
  *       404:
- *         description: Appointment not found.
+ *         description: Cita no encontrada.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.get('/:id', validateRequest(readAppointmentSchema), getById);
 
@@ -111,8 +111,8 @@ router.get('/:id', validateRequest(readAppointmentSchema), getById);
  * @swagger
  * /appointments/{id}:
  *   put:
- *     summary: Update an appointment by ID
- *     tags: [Appointments]
+ *     summary: Actualiza una cita por su ID
+ *     tags: [appointments]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -122,26 +122,26 @@ router.get('/:id', validateRequest(readAppointmentSchema), getById);
  *         schema:
  *           type: string
  *           format: uuid
- *         description: The appointment ID.
+ *         description: ID de la cita a actualizar.
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/Appointment"
+ *             $ref: '#/components/schemas/Appointment'
  *     responses:
  *       200:
- *         description: Appointment updated successfully.
+ *         description: Cita actualizada exitosamente.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Appointment"
+ *               $ref: '#/components/schemas/Appointment'
  *       404:
- *         description: Appointment not found.
+ *         description: Cita no encontrada.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.put('/:id', validateRequest(updateAppointmentSchema), update);
 
@@ -149,8 +149,8 @@ router.put('/:id', validateRequest(updateAppointmentSchema), update);
  * @swagger
  * /appointments/{id}:
  *   delete:
- *     summary: Delete an appointment by ID
- *     tags: [Appointments]
+ *     summary: Elimina una cita por su ID
+ *     tags: [appointments]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -160,10 +160,10 @@ router.put('/:id', validateRequest(updateAppointmentSchema), update);
  *         schema:
  *           type: string
  *           format: uuid
- *         description: The appointment ID.
+ *         description: ID de la cita a eliminar.
  *     responses:
  *       200:
- *         description: Appointment deleted successfully.
+ *         description: Cita eliminada exitosamente.
  *         content:
  *           application/json:
  *             schema:
@@ -171,13 +171,13 @@ router.put('/:id', validateRequest(updateAppointmentSchema), update);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Appointment deleted successfully"
+ *                   example: "Cita eliminada exitosamente"
  *       404:
- *         description: Appointment not found.
+ *         description: Cita no encontrada.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.delete('/:id', validateRequest(deleteAppointmentSchema), destroy);
 

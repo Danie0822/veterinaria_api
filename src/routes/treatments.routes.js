@@ -21,27 +21,27 @@ router.use(checkAuth('admin'));
 /**
  * @swagger
  * tags:
- *   name: Treatments
- *   description: Endpoints related to treatment operations
+ *   name: treatments
+ *   description: Endpoints para gestionar los tratamientos
  */
 
 /**
  * @swagger
  * /treatments:
  *   get:
- *     summary: Retrieve all treatments
- *     tags: [Treatments]
+ *     summary: Obtiene la lista de todos los tratamientos
+ *     tags: [treatments]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: A list of treatments.
+ *         description: Lista de tratamientos.
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: "#/components/schemas/Treatment"
+ *                 $ref: '#/components/schemas/Treatment'
  */
 router.get('/', getAll);
 
@@ -49,8 +49,8 @@ router.get('/', getAll);
  * @swagger
  * /treatments:
  *   post:
- *     summary: Create a new treatment
- *     tags: [Treatments]
+ *     summary: Crea un nuevo tratamiento
+ *     tags: [treatments]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -58,20 +58,20 @@ router.get('/', getAll);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/Treatment"
+ *             $ref: '#/components/schemas/Treatment'
  *     responses:
  *       201:
- *         description: Treatment created successfully.
+ *         description: Tratamiento creado exitosamente.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Treatment"
+ *               $ref: '#/components/schemas/Treatment'
  *       400:
- *         description: Error creating treatment.
+ *         description: Error en la creación del tratamiento.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.post('/', validateRequest(createTreatmentSchema), save);
 
@@ -79,8 +79,8 @@ router.post('/', validateRequest(createTreatmentSchema), save);
  * @swagger
  * /treatments/{id}:
  *   get:
- *     summary: Retrieve a treatment by ID
- *     tags: [Treatments]
+ *     summary: Obtiene un tratamiento por su ID
+ *     tags: [treatments]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -90,20 +90,20 @@ router.post('/', validateRequest(createTreatmentSchema), save);
  *         schema:
  *           type: string
  *           format: uuid
- *         description: The treatment ID.
+ *         description: ID del tratamiento a obtener.
  *     responses:
  *       200:
- *         description: Treatment details.
+ *         description: Detalles del tratamiento.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Treatment"
+ *               $ref: '#/components/schemas/Treatment'
  *       404:
- *         description: Treatment not found.
+ *         description: Tratamiento no encontrado.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.get('/:id', validateRequest(readTreatmentSchema), getById);
 
@@ -111,8 +111,8 @@ router.get('/:id', validateRequest(readTreatmentSchema), getById);
  * @swagger
  * /treatments/{id}:
  *   put:
- *     summary: Update a treatment by ID
- *     tags: [Treatments]
+ *     summary: Actualiza un tratamiento por su ID
+ *     tags: [treatments]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -122,26 +122,26 @@ router.get('/:id', validateRequest(readTreatmentSchema), getById);
  *         schema:
  *           type: string
  *           format: uuid
- *         description: The treatment ID.
+ *         description: ID del tratamiento a actualizar.
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/Treatment"
+ *             $ref: '#/components/schemas/Treatment'
  *     responses:
  *       200:
- *         description: Treatment updated successfully.
+ *         description: Tratamiento actualizado exitosamente.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Treatment"
+ *               $ref: '#/components/schemas/Treatment'
  *       404:
- *         description: Treatment not found.
+ *         description: Tratamiento no encontrado.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.put('/:id', validateRequest(updateTreatmentSchema), update);
 
@@ -149,8 +149,8 @@ router.put('/:id', validateRequest(updateTreatmentSchema), update);
  * @swagger
  * /treatments/{id}:
  *   delete:
- *     summary: Delete a treatment by ID
- *     tags: [Treatments]
+ *     summary: Elimina un tratamiento por su ID
+ *     tags: [treatments]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -160,10 +160,10 @@ router.put('/:id', validateRequest(updateTreatmentSchema), update);
  *         schema:
  *           type: string
  *           format: uuid
- *         description: The treatment ID.
+ *         description: ID del tratamiento a eliminar.
  *     responses:
  *       200:
- *         description: Treatment deleted successfully.
+ *         description: Tratamiento eliminado exitosamente.
  *         content:
  *           application/json:
  *             schema:
@@ -171,13 +171,13 @@ router.put('/:id', validateRequest(updateTreatmentSchema), update);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Treatment deleted successfully"
+ *                   example: "Tratamiento eliminado exitosamente"
  *       404:
- *         description: Treatment not found.
+ *         description: Tratamiento no encontrado.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.delete('/:id', validateRequest(deleteTreatmentSchema), destroy);
 

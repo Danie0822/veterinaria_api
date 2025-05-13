@@ -7,48 +7,50 @@ const {
     update,
     destroy
 } = require('../controllers/medications.controller.js');
-const { checkAuth } = require('../middlewares/checkAuth'); // Import your auth middleware
+const { checkAuth } = require('../middlewares/checkAuth');
 const validateRequest = require('../utils/validateRequest');
 const {
     readRequestSchema,
     createRequestSchema,
     updateRequestSchema,
     deleteRequestSchema,
-} = require('../validations/medications.schema.js'); // Ensure the file name matches
+} = require('../validations/medications.schema.js');
 
-router.use(checkAuth('admin')); // Import the middleware for authentication by role the admin
+router.use(checkAuth('admin'));
+
 /**
  * @swagger
  * tags:
- *   name: Medications
- *   description: Endpoints related to medication operations
+ *   name: medications
+ *   description: Endpoints para gestionar los medicamentos
  */
 
 /**
  * @swagger
  * /medications:
  *   get:
- *     summary: Retrieve all medications
- *     tags: [Medications]
+ *     summary: Obtiene la lista de todos los medicamentos
+ *     tags: [medications]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: A list of medications.
+ *         description: Lista de medicamentos.
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: "#/components/schemas/Medication"
+ *                 $ref: '#/components/schemas/Medication'
  */
 router.get('/', getAll);
+
 /**
  * @swagger
  * /medications:
  *   post:
- *     summary: Create a new medication
- *     tags: [Medications]
+ *     summary: Crea un nuevo medicamento
+ *     tags: [medications]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -56,28 +58,29 @@ router.get('/', getAll);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/Medication"
+ *             $ref: '#/components/schemas/Medication'
  *     responses:
  *       201:
- *         description: Medication created successfully.
+ *         description: Medicamento creado exitosamente.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Medication"
+ *               $ref: '#/components/schemas/Medication'
  *       400:
- *         description: Error creating medication.
+ *         description: Error en la creación del medicamento.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.post('/', validateRequest(createRequestSchema), save);
+
 /**
  * @swagger
  * /medications/{id}:
  *   get:
- *     summary: Retrieve a medication by ID
- *     tags: [Medications]
+ *     summary: Obtiene un medicamento por su ID
+ *     tags: [medications]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -87,28 +90,29 @@ router.post('/', validateRequest(createRequestSchema), save);
  *         schema:
  *           type: string
  *           format: uuid
- *         description: The medication ID.
+ *         description: ID del medicamento a obtener.
  *     responses:
  *       200:
- *         description: Medication details.
+ *         description: Detalles del medicamento.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Medication"
+ *               $ref: '#/components/schemas/Medication'
  *       404:
- *         description: Medication not found.
+ *         description: Medicamento no encontrado.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.get('/:id', validateRequest(readRequestSchema), getById);
+
 /**
  * @swagger
  * /medications/{id}:
  *   put:
- *     summary: Update a medication by ID
- *     tags: [Medications]
+ *     summary: Actualiza un medicamento por su ID
+ *     tags: [medications]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -118,34 +122,35 @@ router.get('/:id', validateRequest(readRequestSchema), getById);
  *         schema:
  *           type: string
  *           format: uuid
- *         description: The medication ID.
+ *         description: ID del medicamento a actualizar.
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/Medication"
+ *             $ref: '#/components/schemas/Medication'
  *     responses:
  *       200:
- *         description: Medication updated successfully.
+ *         description: Medicamento actualizado exitosamente.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Medication"
+ *               $ref: '#/components/schemas/Medication'
  *       404:
- *         description: Medication not found.
+ *         description: Medicamento no encontrado.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.put('/:id', validateRequest(updateRequestSchema), update);
+
 /**
  * @swagger
  * /medications/{id}:
  *   delete:
- *     summary: Delete a medication by ID
- *     tags: [Medications]
+ *     summary: Elimina un medicamento por su ID
+ *     tags: [medications]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -155,10 +160,10 @@ router.put('/:id', validateRequest(updateRequestSchema), update);
  *         schema:
  *           type: string
  *           format: uuid
- *         description: The medication ID.
+ *         description: ID del medicamento a eliminar.
  *     responses:
  *       200:
- *         description: Medication deleted successfully.
+ *         description: Medicamento eliminado exitosamente.
  *         content:
  *           application/json:
  *             schema:
@@ -166,13 +171,13 @@ router.put('/:id', validateRequest(updateRequestSchema), update);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Medication deleted successfully"
+ *                   example: "Medicamento eliminado exitosamente"
  *       404:
- *         description: Medication not found.
+ *         description: Medicamento no encontrado.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.delete('/:id', validateRequest(deleteRequestSchema), destroy);
 
