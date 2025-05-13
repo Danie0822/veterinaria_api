@@ -21,27 +21,27 @@ router.use(checkAuth('admin'));
 /**
  * @swagger
  * tags:
- *   name: MedicalRecords
- *   description: Endpoints related to medical record operations
+ *   name: medicalrecords
+ *   description: Endpoints para gestionar los registros médicos
  */
 
 /**
  * @swagger
  * /medical-records:
  *   get:
- *     summary: Retrieve all medical records
- *     tags: [MedicalRecords]
+ *     summary: Obtiene la lista de todos los registros médicos
+ *     tags: [medicalrecords]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: A list of medical records.
+ *         description: Lista de registros médicos.
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: "#/components/schemas/MedicalRecord"
+ *                 $ref: '#/components/schemas/MedicalRecord'
  */
 router.get('/', getAll);
 
@@ -49,8 +49,8 @@ router.get('/', getAll);
  * @swagger
  * /medical-records:
  *   post:
- *     summary: Create a new medical record
- *     tags: [MedicalRecords]
+ *     summary: Crea un nuevo registro médico
+ *     tags: [medicalrecords]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -58,20 +58,20 @@ router.get('/', getAll);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/MedicalRecord"
+ *             $ref: '#/components/schemas/MedicalRecord'
  *     responses:
  *       201:
- *         description: Medical record created successfully.
+ *         description: Registro médico creado exitosamente.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/MedicalRecord"
+ *               $ref: '#/components/schemas/MedicalRecord'
  *       400:
- *         description: Error creating medical record.
+ *         description: Error en la creación del registro médico.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.post('/', validateRequest(createMedicalRecordSchema), save);
 
@@ -79,8 +79,8 @@ router.post('/', validateRequest(createMedicalRecordSchema), save);
  * @swagger
  * /medical-records/{id}:
  *   get:
- *     summary: Retrieve a medical record by ID
- *     tags: [MedicalRecords]
+ *     summary: Obtiene un registro médico por su ID
+ *     tags: [medicalrecords]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -90,20 +90,20 @@ router.post('/', validateRequest(createMedicalRecordSchema), save);
  *         schema:
  *           type: string
  *           format: uuid
- *         description: The medical record ID.
+ *         description: ID del registro médico a obtener.
  *     responses:
  *       200:
- *         description: Medical record details.
+ *         description: Detalles del registro médico.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/MedicalRecord"
+ *               $ref: '#/components/schemas/MedicalRecord'
  *       404:
- *         description: Medical record not found.
+ *         description: Registro médico no encontrado.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.get('/:id', validateRequest(readMedicalRecordSchema), getById);
 
@@ -111,8 +111,8 @@ router.get('/:id', validateRequest(readMedicalRecordSchema), getById);
  * @swagger
  * /medical-records/{id}:
  *   put:
- *     summary: Update a medical record by ID
- *     tags: [MedicalRecords]
+ *     summary: Actualiza un registro médico por su ID
+ *     tags: [medicalrecords]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -122,26 +122,26 @@ router.get('/:id', validateRequest(readMedicalRecordSchema), getById);
  *         schema:
  *           type: string
  *           format: uuid
- *         description: The medical record ID.
+ *         description: ID del registro médico a actualizar.
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/MedicalRecord"
+ *             $ref: '#/components/schemas/MedicalRecord'
  *     responses:
  *       200:
- *         description: Medical record updated successfully.
+ *         description: Registro médico actualizado exitosamente.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/MedicalRecord"
+ *               $ref: '#/components/schemas/MedicalRecord'
  *       404:
- *         description: Medical record not found.
+ *         description: Registro médico no encontrado.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.put('/:id', validateRequest(updateMedicalRecordSchema), update);
 
@@ -149,8 +149,8 @@ router.put('/:id', validateRequest(updateMedicalRecordSchema), update);
  * @swagger
  * /medical-records/{id}:
  *   delete:
- *     summary: Delete a medical record by ID
- *     tags: [MedicalRecords]
+ *     summary: Elimina un registro médico por su ID
+ *     tags: [medicalrecords]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -160,10 +160,10 @@ router.put('/:id', validateRequest(updateMedicalRecordSchema), update);
  *         schema:
  *           type: string
  *           format: uuid
- *         description: The medical record ID.
+ *         description: ID del registro médico a eliminar.
  *     responses:
  *       200:
- *         description: Medical record deleted successfully.
+ *         description: Registro médico eliminado exitosamente.
  *         content:
  *           application/json:
  *             schema:
@@ -171,13 +171,13 @@ router.put('/:id', validateRequest(updateMedicalRecordSchema), update);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Medical record deleted successfully"
+ *                   example: "Registro médico eliminado exitosamente"
  *       404:
- *         description: Medical record not found.
+ *         description: Registro médico no encontrado.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.delete('/:id', validateRequest(deleteMedicalRecordSchema), destroy);
 

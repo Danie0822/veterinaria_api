@@ -21,27 +21,27 @@ router.use(checkAuth('admin'));
 /**
  * @swagger
  * tags:
- *   name: TreatmentMedications
- *   description: Endpoints related to treatment medication operations
+ *   name: treatmentmedications
+ *   description: Endpoints para gestionar los medicamentos de tratamiento
  */
 
 /**
  * @swagger
  * /treatment-medications:
  *   get:
- *     summary: Retrieve all treatment medications
- *     tags: [TreatmentMedications]
+ *     summary: Obtiene la lista de todos los medicamentos de tratamiento
+ *     tags: [treatmentmedications]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: A list of treatment medications.
+ *         description: Lista de medicamentos de tratamiento.
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: "#/components/schemas/TreatmentMedication"
+ *                 $ref: '#/components/schemas/TreatmentMedication'
  */
 router.get('/', getAll);
 
@@ -49,8 +49,8 @@ router.get('/', getAll);
  * @swagger
  * /treatment-medications:
  *   post:
- *     summary: Create a new treatment medication
- *     tags: [TreatmentMedications]
+ *     summary: Crea un nuevo medicamento de tratamiento
+ *     tags: [treatmentmedications]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -58,20 +58,20 @@ router.get('/', getAll);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/TreatmentMedication"
+ *             $ref: '#/components/schemas/TreatmentMedication'
  *     responses:
  *       201:
- *         description: Treatment medication created successfully.
+ *         description: Medicamento de tratamiento creado exitosamente.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/TreatmentMedication"
+ *               $ref: '#/components/schemas/TreatmentMedication'
  *       400:
- *         description: Error creating treatment medication.
+ *         description: Error en la creación del medicamento de tratamiento.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.post('/', validateRequest(createTreatmentMedicationSchema), save);
 
@@ -79,8 +79,8 @@ router.post('/', validateRequest(createTreatmentMedicationSchema), save);
  * @swagger
  * /treatment-medications/{id}:
  *   get:
- *     summary: Retrieve a treatment medication by ID
- *     tags: [TreatmentMedications]
+ *     summary: Obtiene un medicamento de tratamiento por su ID
+ *     tags: [treatmentmedications]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -90,20 +90,20 @@ router.post('/', validateRequest(createTreatmentMedicationSchema), save);
  *         schema:
  *           type: string
  *           format: uuid
- *         description: The treatment medication ID.
+ *         description: ID del medicamento de tratamiento a obtener.
  *     responses:
  *       200:
- *         description: Treatment medication details.
+ *         description: Detalles del medicamento de tratamiento.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/TreatmentMedication"
+ *               $ref: '#/components/schemas/TreatmentMedication'
  *       404:
- *         description: Treatment medication not found.
+ *         description: Medicamento de tratamiento no encontrado.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.get('/:id', validateRequest(readTreatmentMedicationSchema), getById);
 
@@ -111,8 +111,8 @@ router.get('/:id', validateRequest(readTreatmentMedicationSchema), getById);
  * @swagger
  * /treatment-medications/{id}:
  *   put:
- *     summary: Update a treatment medication by ID
- *     tags: [TreatmentMedications]
+ *     summary: Actualiza un medicamento de tratamiento por su ID
+ *     tags: [treatmentmedications]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -122,26 +122,26 @@ router.get('/:id', validateRequest(readTreatmentMedicationSchema), getById);
  *         schema:
  *           type: string
  *           format: uuid
- *         description: The treatment medication ID.
+ *         description: ID del medicamento de tratamiento a actualizar.
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/TreatmentMedication"
+ *             $ref: '#/components/schemas/TreatmentMedication'
  *     responses:
  *       200:
- *         description: Treatment medication updated successfully.
+ *         description: Medicamento de tratamiento actualizado exitosamente.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/TreatmentMedication"
+ *               $ref: '#/components/schemas/TreatmentMedication'
  *       404:
- *         description: Treatment medication not found.
+ *         description: Medicamento de tratamiento no encontrado.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.put('/:id', validateRequest(updateTreatmentMedicationSchema), update);
 
@@ -149,8 +149,8 @@ router.put('/:id', validateRequest(updateTreatmentMedicationSchema), update);
  * @swagger
  * /treatment-medications/{id}:
  *   delete:
- *     summary: Delete a treatment medication by ID
- *     tags: [TreatmentMedications]
+ *     summary: Elimina un medicamento de tratamiento por su ID
+ *     tags: [treatmentmedications]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -160,10 +160,10 @@ router.put('/:id', validateRequest(updateTreatmentMedicationSchema), update);
  *         schema:
  *           type: string
  *           format: uuid
- *         description: The treatment medication ID.
+ *         description: ID del medicamento de tratamiento a eliminar.
  *     responses:
  *       200:
- *         description: Treatment medication deleted successfully.
+ *         description: Medicamento de tratamiento eliminado exitosamente.
  *         content:
  *           application/json:
  *             schema:
@@ -171,13 +171,13 @@ router.put('/:id', validateRequest(updateTreatmentMedicationSchema), update);
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Treatment medication deleted successfully"
+ *                   example: "Medicamento de tratamiento eliminado exitosamente"
  *       404:
- *         description: Treatment medication not found.
+ *         description: Medicamento de tratamiento no encontrado.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ErrorResponse"
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.delete('/:id', validateRequest(deleteTreatmentMedicationSchema), destroy);
 
