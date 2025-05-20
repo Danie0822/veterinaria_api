@@ -1,24 +1,22 @@
-# Usar una imagen oficial de Node.js como base
-FROM node:18
+# Imagen base optimizada
+FROM node:18-alpine
 
-# Establecer el directorio de trabajo dentro del contenedor
+# Establecer directorio de trabajo
 WORKDIR /app
 
-# Copiar los archivos de configuración de la aplicación
-COPY package.json ./
+# Instalar dependencias (usando solo package.json para cache eficiente)
+COPY package.json package-lock.json* ./
+RUN npm install --frozen-lockfile
 
-# Instalar dependencias
-RUN npm install
-
-# Copiar el resto de la aplicación
+# Copiar el resto del código
 COPY . .
 
-# Asegurar que las variables de entorno sean accesibles dentro del contenedor
+# Variables de entorno
 ARG API_PORT
 ENV API_PORT=${API_PORT}
 
-# Exponer el puerto definido
+# Exponer puerto
 EXPOSE ${API_PORT}
 
-# Solo correr migraciones y luego iniciar la app, sin ejecutar seeders
+# Ejecutar migraciones y lanzar app
 CMD ["sh", "-c", "npx sequelize db:migrate && npm run dev"]
