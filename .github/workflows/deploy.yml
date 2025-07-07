@@ -1,0 +1,27 @@
+name: Deploy a EC2
+
+on:
+  push:
+    branches:
+      - main  # o la rama que uses
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Conectarse a EC2 y hacer deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            cd ~/nginx-prueba-api/veterinaria_api/
+            git pull origin main
+            cd ..
+            docker-compose down
+            docker-compose up -d --build
