@@ -17,7 +17,6 @@ const {
 
 const router = express.Router();
 
-router.use(checkAuth('admin'));
 
 /**
  * @swagger

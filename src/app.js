@@ -23,6 +23,13 @@ app.use(express.urlencoded({ extended: true }));
 
 // Rutas principales (se cargan desde el index de `routes/`)
 app.use('/api/', routes);
+// probar que esta funcionado la api 
+app.use('/', (req, res) => {
+  res.status(200).json({
+    message: 'API is running successfully',
+    version: '1.0.0',
+  });
+});
 // Aquí llamas a la función que monta SwaggerUI3
 swaggerDocs(app);
 // Middleware de manejo de errores (debe ir al final)
